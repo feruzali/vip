@@ -2,7 +2,6 @@
 #https://github.com/ageitgey/face_recognition
 import face_recognition
 
-#strong cutoff = 0.5, normal cutoff = 0.6
 cutoff = 0.5
 
 # Load some images to compare against
