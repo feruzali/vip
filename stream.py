@@ -1,24 +1,22 @@
 from flask import Flask, Response, render_template_string
 import cv2
 
+import face
 
 app = Flask(__name__)
 
-'''camera = Picamera2()
-camera.configure(camera.create_preview_configuration(main={"format": 'RGB888', "size": (640, 480)}))
-camera.start()
-'''
 cap = cv2.VideoCapture(0)
 
 def generate_frames():
     while True:
         _,img = cap.read()
-        '''frame = camera.capture_array()'''
         frame = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # Convert RGB to BGR
         res, buffer = cv2.imencode('.jpg', frame)
         frame = buffer.tobytes()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        
+        face.detect_face(cap)
 
 @app.route('/video_feed')
 def video_feed():

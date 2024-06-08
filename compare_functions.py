@@ -7,27 +7,12 @@ cutoff = 0.5
 
 # Load some images to compare against
 azamjon_image = face_recognition.load_image_file("images/azamjon.jpg")
-javo_image = face_recognition.load_image_file("images/javo.jpeg")
-diyora_image = face_recognition.load_image_file("images/diyora.jpg")
-muhammadyunus_image = face_recognition.load_image_file("images/muhammadyunus.jpg")
-sardor_image = face_recognition.load_image_file("images/sardor.jpg")
-professor_image = face_recognition.load_image_file("images/professor_Victoria_Kim.jpg")
 
 # Get the face encodings for the known images
-azamjon_encoding = face_recognition.face_encodings(azamjon_image)[0]
 javo_encoding = face_recognition.face_encodings(javo_image)[0]
-diyora_encoding = face_recognition.face_encodings(diyora_image)[0]
-muhammadyunus_encoding = face_recognition.face_encodings(muhammadyunus_image)[0]
-sardor_encoding = face_recognition.face_encodings(sardor_image)[0]
-professor_encoding = face_recognition.face_encodings(professor_image)[0]
 
 known_encodings = [
-    (azamjon_encoding, "Azamjon"),
     (javo_encoding, "Javokhir"),
-    (diyora_encoding, "Diyora"),
-    (muhammadyunus_encoding, "Muhammadyunus"),
-    (sardor_encoding, "Sardor"),
-    (professor_encoding, "Professor Victoria Kim"),
 ]
 
 # To compare the faces of the known people and return the name of person respectively
