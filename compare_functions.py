@@ -6,7 +6,7 @@ import face_recognition
 cutoff = 0.5
 
 # Load some images to compare against
-azamjon_image = face_recognition.load_image_file("images/azamjon.jpg")
+azamjon_image = face_recognition.load_image_file("images/javo.jpeg")
 
 # Get the face encodings for the known images
 javo_encoding = face_recognition.face_encodings(javo_image)[0]
