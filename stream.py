@@ -49,14 +49,6 @@ def index():
                 border-radius: 15px;
                 box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
             }
-            .clock {
-                font-size: 2em;
-                margin-bottom: 20px;
-            }
-            .title {
-                font-size: 2.5em;
-                margin-bottom: 10px;
-            }
             .video-container {
                 position: relative;
                 display: inline-block;
@@ -70,9 +62,6 @@ def index():
                 width: 150%;
                 height: auto;
             }
-            .time {
-                color: red;
-                }
         </style>
     </head>
     <body>
