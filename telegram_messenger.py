@@ -16,5 +16,5 @@ def send_message(msg):
 def send_attendance(person_name):
     msg = 'An unknown person.'
     if (person_name != 'Unknown'):
-        msg = person_name + "'s attendance taken ."
+        msg = person_name + " is at the front door!"
     send_message(msg)

@@ -1,17 +1,20 @@
 from flask import Flask, Response, render_template_string
-from picamera2 import Picamera2
 import cv2
+
 
 app = Flask(__name__)
 
-camera = Picamera2()
+'''camera = Picamera2()
 camera.configure(camera.create_preview_configuration(main={"format": 'RGB888', "size": (640, 480)}))
 camera.start()
+'''
+cap = cv2.VideoCapture(0)
 
 def generate_frames():
     while True:
-        frame = camera.capture_array()
-        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  # Convert RGB to BGR
+        _,img = cap.read()
+        '''frame = camera.capture_array()'''
+        frame = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # Convert RGB to BGR
         res, buffer = cv2.imencode('.jpg', frame)
         frame = buffer.tobytes()
         yield (b'--frame\r\n'
@@ -27,7 +30,7 @@ def index():
     <!DOCTYPE html>
     <html>
     <head>
-        <title>ANEMA - LIVE CAM</title>
+        <title>LIVE CAM</title>
         <style>
             body {
                 margin: 0;
@@ -37,14 +40,13 @@ def index():
                 justify-content: center;
                 align-items: center;
                 height: 100vh;
-                background-image: url("https://img.lovepik.com/photo/48013/0603.jpg_wh860.jpg");
                 background-size: cover;
                 background-position: center;
                 color: white;
             }
             .container {
                 text-align: center;
-                background: #769126;
+                background: blue;
                 padding: 20px;
                 border-radius: 15px;
                 box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
@@ -66,9 +68,8 @@ def index():
                 box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
             }
             video {
-                border-radius: 15px;
                 display: block;
-                width: 100%;
+                width: 150%;
                 height: auto;
             }
             .time {
@@ -78,31 +79,10 @@ def index():
     </head>
     <body>
         <div class="container">
-            <div class="logo-container" style="position: absolute;">
-                <img src="{{ url_for('static', filename='/logo.png') }}" alt="Logo" style="position: relative; top:-33px; width: 230px;"/>
-            </div>
-            <div class="clock" id="clock"></div>
-            <div class="title">LIVE CAM</div>
             <div class="video-container">
                 <img src="{{ url_for('video_feed') }}" alt="Live video feed" />
             </div>
         </div>
-        <script>
-            function updateClock() {
-                var now = new Date();
-                var year = now.getFullYear();
-                var month = (now.getMonth() + 1).toString().padStart(2, '0');
-                var day = now.getDate().toString().padStart(2, '0');
-                var hours = now.getHours().toString().padStart(2, '0');
-                var minutes = now.getMinutes().toString().padStart(2, '0');
-                var seconds = now.getSeconds().toString().padStart(2, '0');
-                var dateString = year + '-' + month + '-' + day;
-                var timeString = '<span class="time">' + hours + ':' + minutes + ':' + seconds + '</span>';
-                document.getElementById('clock').innerHTML = dateString + ' ' + timeString;
-            }
-            setInterval(updateClock, 1000);
-            updateClock();  // initial call
-        </script>
     </body>
     </html>
     ''')
