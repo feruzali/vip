@@ -2,7 +2,9 @@
 import datetime
 import telepot
 
-bot = telepot.Bot('5781518019:AAFo3Q4haFUGHiGGHkl-uL0M85EVWY86Gss')
+import BOT_TOKEN
+
+bot = telepot.Bot(BOT_TOKEN)
 
 
 # Function to send images
